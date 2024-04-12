@@ -151,22 +151,22 @@ module.exports = {
         }, { upsert: true }).catch(e => { })
 
         const albumCreatedEmbed = new EmbedBuilder()
-  .setColor('#00ff00')
+          .setColor('#00ff00')
           .setAuthor({
             name: 'Album Created Sucessfully',
             iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1215554404527116288/7762-verified-blue.gif',
             url: 'https://discord.gg/FUEHs7RCqz'
           })
-  .setDescription(`Hey <@${interaction.member.id}>, your album has been created successfully! 🎉`)
-  .setTimestamp();
+          .setDescription(`Hey <@${interaction.member.id}>, your album has been created successfully! 🎉`)
+          .setTimestamp();
 
-// Editing the reply with both content and embed
-await interaction.editReply({
-  content: '',
-  embeds: [albumCreatedEmbed]
-}).catch(e => {
-  console.error('Error editing reply:', e);
-});
+        // Editing the reply with both content and embed
+        await interaction.editReply({
+          content: '',
+          embeds: [albumCreatedEmbed]
+        }).catch(e => {
+          console.error('Error editing reply:', e);
+        });
       }
 
       if (stp === "delete") {
@@ -177,7 +177,7 @@ await interaction.editReply({
         if (!playlist?.playlist?.filter(p => p.name === name).length > 0) return interaction.reply({ content: '❌ No album Found', ephemeral: true }).catch(e => { })
 
         const music_filter = playlist?.musics?.filter(m => m.playlist_name === name)
-        if (music_filter?.length > 0){
+        if (music_filter?.length > 0) {
           await db.playlist.updateOne({ userID: interaction.user.id }, {
             $pull: {
               musics: {
@@ -187,7 +187,7 @@ await interaction.editReply({
           }).catch(e => { })
         }
 
-       const deletingAlbumEmbed = new EmbedBuilder()
+        const deletingAlbumEmbed = new EmbedBuilder()
           .setColor('#0099ff')
           .setTitle('Deleting Album')
           .setDescription(`Hey <@${interaction.member.id}>, your album is being Deleted 🎸`)
@@ -209,23 +209,23 @@ await interaction.editReply({
           }
         }, { upsert: true }).catch(e => { })
 
-         const albumDeleteEmbed = new EmbedBuilder()
-  .setColor('#00ff00')
+        const albumDeleteEmbed = new EmbedBuilder()
+          .setColor('#00ff00')
           .setAuthor({
             name: 'Album Deleted Sucessfully',
             iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1215554404527116288/7762-verified-blue.gif',
             url: 'https://discord.gg/FUEHs7RCqz'
           })
-  .setDescription(`Hey <@${interaction.member.id}>, your album has been Deleted successfully! ✨`)
-  .setTimestamp();
+          .setDescription(`Hey <@${interaction.member.id}>, your album has been Deleted successfully! ✨`)
+          .setTimestamp();
 
-// Editing the reply with both content and embed
-await interaction.editReply({
-  content: '',
-  embeds: [albumDeleteEmbed]
-}).catch(e => {
-  console.error('Error editing reply:', e);
-});
+        // Editing the reply with both content and embed
+        await interaction.editReply({
+          content: '',
+          embeds: [albumDeleteEmbed]
+        }).catch(e => {
+          console.error('Error editing reply:', e);
+        });
       }
 
       if (stp === "add-music") {
@@ -239,8 +239,8 @@ await interaction.editReply({
 
         let max_music = client.config.playlistSettings.maxMusic
         if (playlist?.musics?.filter(m => m.playlist_name === playlist_name).length > max_music) return interaction.reply({ content: "Reached Album songs limit".replace("{max_music}", max_music), ephemeral: true }).catch(e => { })
-        let res 
-        try{
+        let res
+        try {
           res = await client.player.search(name, {
             member: interaction.member,
             textChannel: interaction.channel,
@@ -251,20 +251,20 @@ await interaction.editReply({
         }
         if (!res || !res.length || !res.length > 1) return interaction.reply({ content: `Cannot Find ❌ `, ephemeral: true }).catch(e => { })
         const loadingembed = new EmbedBuilder()
-        .setColor('#0099ff')
-       .setAuthor({
-          name: 'Song Added to Your Album',
-          iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213430944007061574/6943_Verified.gif',
-          url: 'https://discord.gg/FUEHs7RCqz'
-        })
-        .setDescription(`Hey <@${interaction.member.id}>, your song has been Added successfully! ✨`)
-        .setFooter({ text: 'YouTube - RTX GAMING' })
+          .setColor('#0099ff')
+          .setAuthor({
+            name: 'Song Added to Your Album',
+            iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213430944007061574/6943_Verified.gif',
+            url: 'https://discord.gg/FUEHs7RCqz'
+          })
+          .setDescription(`Hey <@${interaction.member.id}>, your song has been Added successfully! ✨`)
+          .setFooter({ text: 'YouTube - Carlos Curcino' })
         await interaction.reply({
-  content: '',
-  embeds: [ loadingembed ] 
-}).catch(e => {
-  console.error('Error sending message:', e);
-});
+          content: '',
+          embeds: [loadingembed]
+        }).catch(e => {
+          console.error('Error sending message:', e);
+        });
 
         const music_filter = playlist?.musics?.filter(m => m.playlist_name === playlist_name && m.music_name === res[0]?.name)
         if (music_filter?.length > 0) return interaction.editReply({ content: ' ❌ Song already in Album', ephemeral: true }).catch(e => { })
@@ -274,7 +274,7 @@ await interaction.editReply({
             musics: {
               playlist_name: playlist_name,
               music_name: res[0]?.name,
-              music_url: res[0]?.url, 
+              music_url: res[0]?.url,
               saveTime: Date.now()
             }
           }
@@ -296,7 +296,7 @@ await interaction.editReply({
         const music_filter = playlist?.musics?.filter(m => m.playlist_name === playlist_name && m.music_name === name)
         if (!music_filter?.length > 0) return interaction.reply({ content: `❌ No Song found!`, ephemeral: true }).catch(e => { })
 
-         const deletingSongEmbed = new EmbedBuilder()
+        const deletingSongEmbed = new EmbedBuilder()
           .setColor('#0099ff')
           .setTitle('Removing Song')
           .setDescription(`Hey <@${interaction.member.id}>, your Song is being Removed!`)
@@ -319,23 +319,23 @@ await interaction.editReply({
           }
         }, { upsert: true }).catch(e => { })
 
-         const songDeleteEmbed = new EmbedBuilder()
-  .setColor('#00ff00')
+        const songDeleteEmbed = new EmbedBuilder()
+          .setColor('#00ff00')
           .setAuthor({
             name: 'Song Removed Sucessfully',
             iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1215554404527116288/7762-verified-blue.gif',
             url: 'https://discord.gg/FUEHs7RCqz'
           })
-  .setDescription(`Hey <@${interaction.member.id}>, your song has been Removed successfully! ✨`)
-  .setTimestamp();
+          .setDescription(`Hey <@${interaction.member.id}>, your song has been Removed successfully! ✨`)
+          .setTimestamp();
 
-// Editing the reply with both content and embed
-await interaction.editReply({
-  content: '',
-  embeds: [songDeleteEmbed]
-}).catch(e => {
-  console.error('Error editing reply:', e);
-});
+        // Editing the reply with both content and embed
+        await interaction.editReply({
+          content: '',
+          embeds: [songDeleteEmbed]
+        }).catch(e => {
+          console.error('Error editing reply:', e);
+        });
       }
 
       if (stp === "list") {
@@ -401,17 +401,17 @@ await interaction.editReply({
           const current = trackl.slice(start, start + kaçtane)
           if (!current || !current?.length > 0) return interaction.reply({ content: '❌ Your album is Empty, add any songs to it!', ephemeral: true }).catch(e => { })
           return new EmbedBuilder()
-           .setAuthor({
-          name: 'Album Songs',
-          iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
-          url: 'https://discord.gg/FUEHs7RCqz'
-        })
+            .setAuthor({
+              name: 'Album Songs',
+              iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
+              url: 'https://discord.gg/FUEHs7RCqz'
+            })
             .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
-            .setColor(client.config.embedColor) 
+            .setColor(client.config.embedColor)
             .setDescription(`\n${current.map(data =>
-              `\n\`${sayı++}\` | [${data.music_name}](${data.music_url}) - <t:${Math.floor(data.saveTime / 1000) }:R>`
-            ) }`)
-            .setFooter({ text: `Section ${page}/${Math.floor(a+1) }` })
+              `\n\`${sayı++}\` | [${data.music_name}](${data.music_url}) - <t:${Math.floor(data.saveTime / 1000)}:R>`
+            )}`)
+            .setFooter({ text: `Section ${page}/${Math.floor(a + 1)}` })
         }
 
         const canFitOnOnePage = trackl.length <= kaçtane
@@ -457,7 +457,7 @@ await interaction.editReply({
                   }),
                 ],
               }).catch(e => { })
-              await button.deferUpdate().catch(e => {})
+              await button.deferUpdate().catch(e => { })
             }
           })
 
@@ -484,7 +484,7 @@ await interaction.editReply({
               .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
               .setColor(client.config.embedColor)
               .setDescription('Timeout Use command again!'.replace("{name}", name))
-              .setFooter({ text: 'YouTube - RTX GAMING' })
+              .setFooter({ text: 'YouTube - Carlos Curcino' })
             return interaction.editReply({ embeds: [embed], components: [button] }).catch(e => { })
 
           })
@@ -505,10 +505,10 @@ await interaction.editReply({
           })
           .setColor(client.config.embedColor)
           .setDescription(`\n${playlist?.playlist?.map(data =>
-            `\n**${number++} |** \`${data.name}\` - **${playlist?.musics?.filter(m => m.playlist_name === data.name)?.length || 0}** plays (<t:${Math.floor(data.createdTime / 1000) }:R>)`
-          ) }`)
-          .setFooter({ text: 'YouTube - RTX GAMING' })
-        return interaction.reply({ embeds: [embed] }).catch(e => { }) 
+            `\n**${number++} |** \`${data.name}\` - **${playlist?.musics?.filter(m => m.playlist_name === data.name)?.length || 0}** plays (<t:${Math.floor(data.createdTime / 1000)}:R>)`
+          )}`)
+          .setFooter({ text: 'YouTube - Carlos Curcino' })
+        return interaction.reply({ embeds: [embed] }).catch(e => { })
 
       }
 
@@ -526,7 +526,7 @@ await interaction.editReply({
           })
         })
 
-        trackl = trackl.filter(a => a.plays > 0) 
+        trackl = trackl.filter(a => a.plays > 0)
 
         if (!trackl?.length > 0) return interaction.reply({ content: 'There are no playlists ❌', ephemeral: true }).catch(e => { })
 
@@ -570,9 +570,9 @@ await interaction.editReply({
             .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
             .setColor(client.config.embedColor)
             .setDescription(`\n${current.map(data =>
-              `\n**${sayı++} |** \`${data.name}\` By. \`${data.authorTag}\` - **${data.plays}** "plays" (<t:${Math.floor(data.createdTime / 1000) }:R>)`
-            ) }`)
-            .setFooter({ text: `Section ${page}/${Math.floor(a+1) }` })
+              `\n**${sayı++} |** \`${data.name}\` By. \`${data.authorTag}\` - **${data.plays}** "plays" (<t:${Math.floor(data.createdTime / 1000)}:R>)`
+            )}`)
+            .setFooter({ text: `Section ${page}/${Math.floor(a + 1)}` })
         }
 
         const canFitOnOnePage = trackl.length <= kaçtane
@@ -618,7 +618,7 @@ await interaction.editReply({
                   }),
                 ],
               }).catch(e => { })
-              await button.deferUpdate().catch(e => {})
+              await button.deferUpdate().catch(e => { })
             }
           })
 
@@ -642,14 +642,14 @@ await interaction.editReply({
 
             const embed = new EmbedBuilder()
               .setAuthor({
-          name: 'Top Albums',
-          iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
-          url: 'https://discord.gg/FUEHs7RCqz'
-        })
+                name: 'Top Albums',
+                iconURL: 'https://cdn.discordapp.com/attachments/1213421081226903552/1213422313035407360/8218-alert.gif',
+                url: 'https://discord.gg/FUEHs7RCqz'
+              })
               .setThumbnail(interaction.user.displayAvatarURL({ size: 2048, dynamic: true }))
               .setColor(client.config.embedColor)
               .setDescription('TimeOut!')
-              .setFooter({ text: 'YouTube - RTX GAMING' })
+              .setFooter({ text: 'YouTube - Carlos Curcino' })
             return interaction.editReply({ embeds: [embed], components: [button] }).catch(e => { })
 
           })
