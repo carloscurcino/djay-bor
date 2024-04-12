@@ -1,6 +1,7 @@
+require('dotenv').config();
+
 module.exports = {
-  TOKEN:
-    "MTIyODA4MTk1NzgxMjk2NTUyNw.G2fkWv.7xok1vMjqAK1dYFizYcA-oVpsogGCSjIJZTQmA",
+  TOKEN: process.env.DISCORD_TOKEN,
   ownerID: ["1004206704994566164", ""],
   botInvite: "",
   supportServer: "",
